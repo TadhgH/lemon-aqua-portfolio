@@ -1,0 +1,25 @@
+<!-- +++++ Contact Section +++++ -->
+<div class="container pt">
+  <div class="row mt">
+    <div class="col-lg-6 col-lg-offset-3 centered">
+      <h3>ADMIN LOG IN</h3>
+      <button type="submit" class="btn btn-success" ng-click="logout()">Logout Move this button</button>
+      <hr>
+    </div>
+  </div>
+  <div class="row mt">
+    <div class="col-lg-8 col-lg-offset-2">
+      <form role="form" ng-submit="signin()">
+        <div class="form-group">
+          <input type="name" class="form-control" id="exampleInputEmail1" placeholder="Username" ng-model="adminname">
+          <br>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="subjectEmail1" placeholder="Password" ng-model="password">
+          <br>
+        </div>
+        <button type="submit" class="btn btn-success">SUBMIT</button>
+      </form>
+    </div>
+  </div><!-- /row -->
+</div><!-- /container -->
