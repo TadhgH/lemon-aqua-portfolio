@@ -3,19 +3,9 @@
 
   angular.module('portfolio')
 
-  .service('data', [function(){
+  .service('data', ['$http', function($http){
 
-    var projects = [
-    {
-      name: 'Lia Lugo',
-      tech: 'svg-1',
-      content: 'I love cheese, especially airedale queso. Cheese and biscuits halloumi cauliflower cheese cottage cheese swiss boursin fondue caerphilly. Cow port-salut camembert de normandie macaroni cheese feta who moved my cheese babybel boursin. Red leicester roquefort boursin squirty cheese jarlsberg blue castello caerphilly chalk and cheese. Lancashire.'
-    },
-    {
-      name: 'George Duke',
-      tech: 'svg-2',
-      content: 'Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering animata corpora quaeritis. Summus brains sit​​, morbo vel maleficia? De apocalypsi gorger omero undead survivor dictum mauris.'
-    }];
+    var baseUrl = "http://localhost:1337";
 
     var technologies = [
     {
@@ -43,8 +33,8 @@
       img: 'img/portfolio/400x300/github1.jpg'
     }];
 
-    this.returnProjects = function(){
-      return projects;
+    this.returnProjects = function(success, error) {
+        return $http.get(baseUrl + '/admin/list').success(success).error(error)
     }
 
     this.returnTechnologies = function(){
@@ -106,8 +96,25 @@
           //$localStorage.token = 0;
           success();
       }
-    };
+    }
 
+  }])
 
-  }]);
+  .factory('db', ['$http', function($http){
+    var baseUrl = "http://localhost:1337";
+
+    return {
+      save: function(data, success, error) {
+        console.log(data);
+          $http.post(baseUrl + '/admin/save', data).success(success).error(error)
+      },
+      delete: function(data, success, error) {
+          //$http.post(baseUrl + '/admin/authenticate', data).success(success).error(error)
+      },
+      get: function(success, error) {
+          //$http.get(baseUrl + '/cms').success(success).error(error)
+      }
+    }
+  }])
+
 })();

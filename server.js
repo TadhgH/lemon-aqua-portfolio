@@ -8,7 +8,7 @@ var app        = express();
 
 var port = process.env.PORT || 1337;
 var User = require('./models/user');
-
+var Projects = require('./models/projects');
 var config = require('./config');
 var MONGO_URL = config.database;
 var SUPER_SECRET = config.secret;
@@ -87,6 +87,32 @@ adminRoutes.post('/authenticate', function(req, res) {
       }
     }
   });
+});
+
+adminRoutes.post('/save', function(req, res) {
+
+  console.log(req);
+
+  var project = new Projects({
+    title: req.body.title,
+    outline: req.body.outline,
+    body: req.body.body,
+    tags: req.body.tags
+  });
+
+  project.save(function(err) {
+    if (err) throw err;
+    console.log('User saved successfully');
+    res.json({ success: true });
+  });
+
+});
+
+adminRoutes.get('/list', function(req, res) {
+  Projects.find({}, function(err, projects){
+    res.send(projects);
+  });
+
 });
 
 app.get('/cms', ensureAuthorized, function(req, res) {

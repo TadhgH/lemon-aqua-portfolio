@@ -6,25 +6,43 @@
   .controller('DataCtrl', ['$scope', '$localStorage', 'data', function($scope, $localStorage, data){
 
     $localStorage.$reset();
-    //console.log($localStorage.token);
-    $scope.hey = "hey";
-    $scope.dataProj = data.returnProjects();
+
+    var white = true;
+
+    $scope.dataProj = data.returnProjects(function(res) {
+        $scope.contents = res;
+      }, function() {
+        console.log("list error");
+    });
+
     $scope.dataTech = data.returnTechnologies();
 
-    console.log($scope.dataTech[0].img);
+    $scope.switchClass = function(){
+      if(white == true){
+        white = !white;
+        return 'grey';
+      } else {
+        white = !white;
+        return 'white';
+      }
+    }
 
   }])
 
-  .controller('CMSCtrl', ['$scope', 'auth', function($scope, auth){
+  .controller('CMSCtrl', ['$scope', '$http', 'auth', 'db', function($scope, $http, auth, db){
 
-    console.log("jckpot");
+    $scope.tags = [
+        { text: 'JavaScript' }
+    ];
+
+    $scope.loadTags = function(query) {
+      return $http.get('tags.json');
+    };
 
     auth.admin(function(res) {
         if(res.verified == true){
-          console.log(res);
           $scope.myDetails = res;
         } else {
-          console.log(res);
           window.location = "/";
         }
 
@@ -32,6 +50,16 @@
         console.log("admin error");
           //$rootScope.error = 'Failed to fetch details';
     });
+
+    $scope.saveContent = function(content){
+      content.tags = $scope.tags;
+      db.save(content, function(res){
+        //do something with response
+      }, function() {
+          //do something with error
+      });
+
+    }
   }])
 
   .controller('AuthCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'auth', function($rootScope, $scope, $location, $localStorage, auth){

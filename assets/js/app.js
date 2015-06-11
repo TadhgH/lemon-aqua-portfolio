@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  angular.module('portfolio', ['ngRoute', 'ngStorage'])
+  angular.module('portfolio', ['ngRoute', 'ngStorage', 'textAngular', 'ngTagsInput'])
 
   .config(function($routeProvider, $httpProvider){
 

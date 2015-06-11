@@ -76,6 +76,13 @@ hr {
     padding: 0;
 }
 
+#taglist li
+{
+  display: inline;
+  list-style-type: none;
+  padding : 0px;
+}
+
 
 /*navbar*/
 
@@ -159,13 +166,13 @@ hr {
 
 /* +++++ Color Wraps / Blog Page +++++ */
 
-#grey {
+.grey {
 	padding-top: 60px;
 	padding-bottom: 60px;
 	background-color: #f2f2f2;
 }
 
-#white {
+.white {
 	padding-top: 60px;
 	padding-bottom: 60px;
 	background-color: #ffffff;
