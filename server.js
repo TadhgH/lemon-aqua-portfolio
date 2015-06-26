@@ -175,7 +175,7 @@ var findAndRemove = function(){
   });
 }
 
-findAndRemove();
+//findAndRemove();
 
 // Start Server
 app.listen(port, function() {
