@@ -10,10 +10,10 @@
         templateUrl: 'views/template-index.html',
         controller: 'DataCtrl'
     }).
-    when('/about', {
+    /*when('/about', {
         templateUrl: 'views/template-about.html',
         controller: 'DataCtrl'
-    }).
+    }).*/
     when('/contact', {
         templateUrl: 'views/template-contact.html',
         controller: 'DataCtrl'

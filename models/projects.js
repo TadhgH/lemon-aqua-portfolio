@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 // set up a mongoose model and pass it using module.exports
 module.exports = mongoose.model('Projects', new Schema({
     title: String,
+    github: String,
     outline: String,
     body: String,
     tags: [],

@@ -1,19 +1,17 @@
 <!-- +++++ Posts Lists +++++ -->
 <!-- +++++ First Post +++++ -->
 <div ng-repeat="content in contents">
-  <div ng-class="switchClass()">
+  <div ng-class-odd="'grey'" ng-class-even="'white'">
       <div class="container">
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
-
             <!--<p><bd>{{content.created}}</bd></p>-->
           <!--<p></p>-->
-
           <h4>{{content.title}}</h4>
           <div ng-repeat="tag in content.tags"><bd>{{tag.text}}</bd></div>
           <p>{{content.outline}}</p>
           <div ta-bind ng-model="content.body"></div>
-          <p><a href="blog01.html">Continue Reading...</a></p>
+          <p><a href="content.github">Github</a></p>
         </div>
 
       </div><!-- /row -->

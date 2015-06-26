@@ -7,8 +7,6 @@
 
     $localStorage.$reset();
 
-    var white = true;
-
     $scope.dataProj = data.returnProjects(function(res) {
         $scope.contents = res;
       }, function() {
@@ -16,16 +14,6 @@
     });
 
     $scope.dataTech = data.returnTechnologies();
-
-    $scope.switchClass = function(){
-      if(white == true){
-        white = !white;
-        return 'grey';
-      } else {
-        white = !white;
-        return 'white';
-      }
-    }
 
   }])
 

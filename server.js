@@ -1,5 +1,6 @@
 // Required Modules
 var express    = require("express");
+var compress   = require("compression");
 var morgan     = require("morgan");
 var bodyParser = require("body-parser");
 var jwt        = require("jsonwebtoken");
@@ -17,6 +18,11 @@ var SUPER_SECRET = config.secret;
 // Connect to DB
 mongoose.connect(MONGO_URL);
 
+app.use(compress());
+
+app.use('/node_modules', express.static(__dirname + '/node_modules'));
+app.use(express.static(__dirname + '/assets'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
@@ -26,15 +32,14 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
     next();
 });
-app.use(express.static("./assets"));
 
 app.get("/", function(req, res) {
-    res.sendFile("./index.html");
+    res.sendFile(__dirname + '/assets/index.html');
 });
 
 var adminRoutes = express.Router();
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
-adminRoutes.get('/setup', function(req, res) {
+/*adminRoutes.get('/setup', function(req, res) {
 
   // create a sample user
   var nick = new User({
@@ -50,7 +55,7 @@ adminRoutes.get('/setup', function(req, res) {
     console.log('User saved successfully');
     res.json({ success: true });
   });
-});
+});*/
 
 adminRoutes.post('/authenticate', function(req, res) {
   // find the user
@@ -89,12 +94,13 @@ adminRoutes.post('/authenticate', function(req, res) {
   });
 });
 
-adminRoutes.post('/save', function(req, res) {
+adminRoutes.post('/save', ensureAuthorized, function(req, res) {
 
   console.log(req);
 
   var project = new Projects({
     title: req.body.title,
+    github: req.body.github,
     outline: req.body.outline,
     body: req.body.body,
     tags: req.body.tags
@@ -116,8 +122,7 @@ adminRoutes.get('/list', function(req, res) {
 });
 
 app.get('/cms', ensureAuthorized, function(req, res) {
-
-    console.log(req.token);
+    console.log("heynow");
 
     if(req.token){
       res.json({
@@ -160,7 +165,19 @@ function ensureAuthorized(req, res, next) {
 // apply the routes to our application
 app.use('/admin', adminRoutes);
 
+var findAndRemove = function(){
+  // find the user with id 4
+  Projects.findOneAndRemove({ title: 'nother' }, function(err) {
+    if (err) throw err;
+
+    // we have deleted the user
+    console.log('User deleted!');
+  });
+}
+
+findAndRemove();
+
 // Start Server
-app.listen(port, function () {
+app.listen(port, function() {
     console.log( "Express server listening on port " + port);
 });
