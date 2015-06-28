@@ -87,6 +87,7 @@
           $http.post(baseUrl + '/admin/authenticate', data).success(success).error(error)
       },
       admin: function(success, error) {
+          console.log("submit button works");
           $http.get(baseUrl + '/cms').success(success).error(error)
       },
       logout: function(success) {

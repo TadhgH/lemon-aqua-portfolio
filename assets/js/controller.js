@@ -28,13 +28,16 @@
     };
 
     auth.admin(function(res) {
+      console.log(res);
         if(res.verified == true){
           $scope.myDetails = res;
         } else {
           window.location = "/";
+          console.log(res);
         }
 
       }, function() {
+
         console.log("admin error");
           //$rootScope.error = 'Failed to fetch details';
     });
@@ -58,8 +61,6 @@
           adminname: $scope.adminname,
           password: $scope.password
       }
-
-      console.log(formData);
 
       auth.signin(formData, function(res) {
           if (res.success == false) {
@@ -87,7 +88,6 @@
     };
 
     $scope.token = $localStorage.token;
-    console.log("works");
 
   }]);
 
