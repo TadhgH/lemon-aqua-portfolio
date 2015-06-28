@@ -14,11 +14,12 @@ var User = require('./models/user');
 var Projects = require('./models/projects');
 var config = require('./config.js');
 var MONGO_URL = config.database;
+var uri = process.env.MONGOLAB_URI;
 var SUPER_SECRET = config.secret;
 
 
 // Connect to DB
-mongoose.connect(MONGO_URL);
+mongoose.connect(uri);
 
 app.use(compress());
 
