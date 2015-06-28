@@ -53,10 +53,13 @@ adminRoutes.get('/setup', function(req, res) {
   console.log(nick);
   // save the sample user
   nick.save(function(err) {
+    console.log("this save");
     if (err) {
       console.log("this an error");
       throw err;
     }
+
+    console.log("this not error");
 
     console.log('User saved successfully');
     res.json({ success: true });
