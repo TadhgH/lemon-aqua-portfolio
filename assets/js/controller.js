@@ -28,7 +28,7 @@
     };
 
     auth.admin(function(res) {
-      console.log(res);
+        console.log(res);
         if(res.verified == true){
           $scope.myDetails = res;
         } else {
