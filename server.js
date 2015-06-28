@@ -49,7 +49,8 @@ adminRoutes.get('/setup', function(req, res) {
     password: '#slash93',
     admin: true
   });
-
+  console.log("this nick");
+  console.log(nick);
   // save the sample user
   nick.save(function(err) {
     if (err) {
