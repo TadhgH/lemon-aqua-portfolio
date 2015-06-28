@@ -5,7 +5,7 @@
 
   .service('data', ['$http', function($http){
 
-    var baseUrl = "http://localhost:1337";
+    var baseUrl = "https://tadhghportfolio.herokuapp.com";
 
     var technologies = [
     {
@@ -44,7 +44,7 @@
   }])
 
   .factory('auth', ['$http', '$localStorage', function($http, $localStorage){
-    var baseUrl = "http://localhost:1337";
+    var baseUrl = "https://tadhghportfolio.herokuapp.com";
 
     function changeUser(user) {
       angular.extend(currentUser, user);
@@ -101,7 +101,8 @@
   }])
 
   .factory('db', ['$http', function($http){
-    var baseUrl = "http://localhost:1337";
+
+    var baseUrl = "https://tadhghportfolio.herokuapp.com";
 
     return {
       save: function(data, success, error) {

@@ -5,6 +5,8 @@ var morgan     = require("morgan");
 var bodyParser = require("body-parser");
 var jwt        = require("jsonwebtoken");
 var mongoose   = require("mongoose");
+var https      = require('https');
+var http       = require('http');
 var app        = express();
 
 var port = process.env.PORT || 1337;
