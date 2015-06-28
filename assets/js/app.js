@@ -40,7 +40,6 @@
           console.log("interceptor");
 
           var token = $localStorage.token;
-          console.log(token);
           config.headers = config.headers || {};
           if ($localStorage.token) {
               config.headers.Authorization = 'Bearer ' + token;

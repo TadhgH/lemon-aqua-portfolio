@@ -41,12 +41,12 @@ app.get("/", function(req, res) {
 
 var adminRoutes = express.Router();
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
-/*adminRoutes.get('/setup', function(req, res) {
+adminRoutes.get('/setup', function(req, res) {
 
   // create a sample user
   var nick = new User({
     name: 'Tadhg',
-    password: 'password',
+    password: '#slash93',
     admin: true
   });
 
@@ -57,7 +57,7 @@ var adminRoutes = express.Router();
     console.log('User saved successfully');
     res.json({ success: true });
   });
-});*/
+});
 
 adminRoutes.post('/authenticate', function(req, res) {
   // find the user
