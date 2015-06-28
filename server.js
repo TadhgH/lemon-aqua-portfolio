@@ -10,7 +10,7 @@ var app        = express();
 var port = process.env.PORT || 1337;
 var User = require('./models/user');
 var Projects = require('./models/projects');
-var config = require('./config');
+var config = require('./config.js');
 var MONGO_URL = config.database;
 var SUPER_SECRET = config.secret;
 
