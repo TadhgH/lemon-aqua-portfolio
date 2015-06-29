@@ -13,7 +13,6 @@ var port = process.env.PORT || 1337;
 var User = require('./models/user');
 var Projects = require('./models/projects');
 var config = require('./config.js');
-var MONGO_URL = config.database;
 var uri = process.env.MONGOLAB_URI;
 var SUPER_SECRET = config.secret;
 
@@ -43,34 +42,25 @@ app.get("/", function(req, res) {
 var adminRoutes = express.Router();
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
 adminRoutes.get('/setup', function(req, res) {
-  console.log("this setup");
   // create a sample user
   var nick = new User({
     name: 'Tadhg',
     password: '#slash93',
     admin: true
   });
-  console.log("this nick");
-  console.log(nick);
+
   // save the sample user
   nick.save(function(err) {
-    console.log("this save");
     if (err) {
-      console.log("this an error");
       throw err;
     }
 
-    console.log("this not error");
-
-    console.log('User saved successfully');
     res.json({ success: true });
   });
 });
 
 adminRoutes.post('/authenticate', function(req, res) {
   // find the user
-  console.log("in");
-  console.log(req.body.adminname);
   User.findOne({
     name: req.body.adminname
   }, function(err, user) {
@@ -79,15 +69,12 @@ adminRoutes.post('/authenticate', function(req, res) {
 
     if (!user) {
       // check if user matches
-      console.log("user error");
       res.json({ success: false, message: 'Authentication failed. User not found.' });
     } else if (user) {
       // check if password matches
       if (user.password != req.body.password) {
-        console.log("password error");
         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
-        console.log("auth success");
         // if user is found and password is right
         // create a token
         var token = jwt.sign(user, SUPER_SECRET, {
@@ -105,8 +92,6 @@ adminRoutes.post('/authenticate', function(req, res) {
 });
 
 adminRoutes.post('/save', ensureAuthorized, function(req, res) {
-
-  console.log(req);
 
   var project = new Projects({
     title: req.body.title,
@@ -132,7 +117,6 @@ adminRoutes.get('/list', function(req, res) {
 });
 
 app.get('/cms', ensureAuthorized, function(req, res) {
-    console.log("heynow");
 
     if(req.token){
       res.json({
@@ -159,7 +143,7 @@ app.get('/cms', ensureAuthorized, function(req, res) {
 });
 
 function ensureAuthorized(req, res, next) {
-    //console.log(req.headers["authorization"]);
+
     var bearerToken;
     var bearerHeader = req.headers["authorization"];
     if (typeof bearerHeader !== 'undefined') {

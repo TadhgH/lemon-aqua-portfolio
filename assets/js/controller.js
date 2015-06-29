@@ -65,14 +65,12 @@
       auth.signin(formData, function(res) {
           if (res.success == false) {
               alert("Incorrect login details");
-              //window.location = "/cms";
           } else {
-              console.log(res);
               $localStorage.token = res.token;
               window.location = "/#/cms";
           }
       }, function() {
-          $rootScope.error = 'Failed to signin';
+          console.log('Failed to signin');
       })
     };
 
