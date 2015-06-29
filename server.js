@@ -96,6 +96,7 @@ adminRoutes.post('/save', ensureAuthorized, function(req, res) {
   var project = new Projects({
     title: req.body.title,
     github: req.body.github,
+    priority: req.body.priority,
     outline: req.body.outline,
     body: req.body.body,
     tags: req.body.tags

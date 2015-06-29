@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 module.exports = mongoose.model('Projects', new Schema({
     title: String,
     github: String,
+    priority: Number,
     outline: String,
     body: String,
     tags: [],
